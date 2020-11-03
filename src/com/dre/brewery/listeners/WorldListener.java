@@ -8,6 +8,7 @@ import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.filedata.BData;
 import com.dre.brewery.filedata.DataSave;
 import com.dre.brewery.utility.BUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -53,7 +54,7 @@ public class WorldListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldUnload(WorldUnloadEvent event) {
-		DataSave.save(true);
+		DataSave.save(p.shuttingDown);
 		String worldName = event.getWorld().getName();
 		Barrel.onUnload(worldName);
 		BCauldron.onUnload(worldName);
