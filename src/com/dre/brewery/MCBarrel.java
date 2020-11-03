@@ -19,6 +19,7 @@ public class MCBarrel {
 	public static final byte OAK = 2;
 	public static final String TAG = "Btime";
 	public static int maxBrews = 6;
+	public static boolean enableAging = true;
 
 	public static long mcBarrelTime; // Globally stored Barrel time. Difference between this and the time stored on each mc-barrel will give the barrel age time
 	public static List<MCBarrel> openBarrels = new ArrayList<>();
@@ -57,7 +58,7 @@ public class MCBarrel {
 					for (ItemStack item : inv.getContents()) {
 						if (item != null) {
 							Brew brew = Brew.get(item);
-							if (brew != null) {
+							if (brew != null && !brew.isStatic()) {
 								if (brews < maxBrews || maxBrews < 0) {
 									// The time is in minutes, but brew.age() expects time in mc-days
 									brew.age(item, ((float) time) / 20f, OAK);
@@ -66,9 +67,11 @@ public class MCBarrel {
 							}
 						}
 					}
-					loadTime = System.nanoTime() - loadTime;
-					float ftime = (float) (loadTime / 1000000.0);
-					P.p.debugLog("opening MC Barrel with potions (" + ftime + "ms)");
+					if (P.debug) {
+						loadTime = System.nanoTime() - loadTime;
+						float ftime = (float) (loadTime / 1000000.0);
+						P.p.debugLog("opening MC Barrel with potions (" + ftime + "ms)");
+					}
 				}
 			}
 		}
@@ -113,7 +116,9 @@ public class MCBarrel {
 
 
 	public static void onUpdate() {
-		mcBarrelTime++;
+		if (enableAging) {
+			mcBarrelTime++;
+		}
 	}
 
 	// Used to visually stop Players from placing more than 6 (configurable) brews in the MC Barrels.

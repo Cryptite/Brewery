@@ -4,6 +4,7 @@ Brew_BadPotion: Ruined Potion
 Brew_BarrelRiped: Barrel aged
 Brew_DistillUndefined: Murky Distillate
 Brew_Distilled: Distilled
+Brew_LessDistilled: Less Distilled
 Brew_HundredsOfYears: Hundreds of Years
 Brew_Ingredients: Ingredients
 Brew_MinutePluralPostfix: s
@@ -33,6 +34,9 @@ CMD_UnLabel: '&aLabel removed!'
 # Error
 Error_ConfigUpdate: 'Unknown Brewery config version: v&v1, config was not updated!'
 Error_ItemNotPotion: '&cThe item in your hand could not be identified as a potion!'
+Error_SealingTableDisabled: '&cThe Sealing Table is disabled'
+Error_SealedAlwaysStatic: 'Sealed Brews are always static!'
+Error_AlreadyUnlabeled: '&cThe Brew in your hand is already unlabeled!'
 Error_NoBarrelAccess: '&cYou don''t have permissions to access this barrel!'
 Error_NoBrewName: '&cNo Recipe with Name: ''&v1&c'' found!'
 Error_NoPermissions: '&cYou don''t have permissions to do this!'
@@ -40,12 +44,13 @@ Error_PlayerCommand: '&cThis command can only be executed as a player!'
 Error_Recipeload: '&cNot all recipes could be restored: More information in the server log!'
 Error_ShowHelp: Use &6/brew help &fto display the help
 Error_UnknownCommand: Unknown Command
-Error_YmlRead: 'Could not read file config.yml, please make sure the file is in valid yml format (correct spaces etc.)'
+Error_YmlRead: 'Could not read file config.yml, please make sure the file is in valid yml format (correct spaces, using '' '' etc.)'
 
 # Etc
 Etc_Barrel: Barrel
 Etc_Page: Page
 Etc_Usage: 'Usage:'
+Etc_SealingTable: Brew Sealing Table
 
 # Help
 Help_Copy: '&6/brew copy [Quantity]&9 Copies the potion in your hand'
@@ -59,6 +64,7 @@ Help_Reload: '&6/brew reload &9Reload config'
 Help_Configname: '&6/brew ItemName &9Display name of item in hand for the config'
 Help_Static: '&6/brew static &9Make Brew static -> No further ageing or distilling'
 Help_UnLabel: '&6/brew unlabel &9Removes the detailled label of a potion'
+Help_Seal: '&6/brew seal &9Seal Brews for selling in shops'
 Help_Wakeup: '&6/brew wakeup list <Page>&9 Lists all wakeup points'
 Help_WakeupAdd: '&6/brew wakeup add &9Adds a wakeup point at your current position'
 Help_WakeupCheck: '&6/brew wakeup check &9Teleports to all wakeup points'
@@ -96,3 +102,4 @@ Player_WakeNoCheck: '&cNo Wakeup Point Check is currently active'
 Player_WakeNoPoints: '&cThere are no Wakeup Points!'
 Player_WakeNotExist: '&cThe Wakeup Point with the id: &6&v1 &cdoesn''t exist!'
 Player_WakeTeleport: 'Teleport to Wakeup Point with the id: &6&v1&f At position: &6&v2 &v3, &v4, &v5'
+Player_ShopSealBrew: '&eBrews should be sealed before selling them'

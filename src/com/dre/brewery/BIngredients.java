@@ -130,12 +130,13 @@ public class BIngredients {
 
 			cookedName = cookRecipe.getName(quality);
 			cookRecipe.getColor().colorBrew(potionMeta, potion, false);
+			brew.updateCustomModelData(potionMeta);
 
 		} else {
 			// new base potion
 			brew = new Brew(this);
 
-			if (state <= 1) {
+			if (state <= 0) {
 				cookedName = P.p.languageReader.get("Brew_ThickBrew");
 				PotionColor.BLUE.colorBrew(potionMeta, potion, false);
 			} else {
@@ -149,6 +150,9 @@ public class BIngredients {
 						lore.write();
 					}
 					cauldronRecipe.getColor().colorBrew(potionMeta, potion, true);
+					if (P.use1_14 && cauldronRecipe.getCmData() != 0) {
+						potionMeta.setCustomModelData(cauldronRecipe.getCmData());
+					}
 				}
 			}
 		}
@@ -191,9 +195,9 @@ public class BIngredients {
 		return count;
 	}
 
-	/*public Map<Material, Integer> getIngredients() {
+	public List<Ingredient> getIngredientList() {
 		return ingredients;
-	}*/
+	}
 
 	public int getCookedTime() {
 		return cookedTime;
@@ -357,7 +361,7 @@ public class BIngredients {
 		int quality = 10 - (int) Math.round(((float) Math.abs(cookedTime - recipe.getCookingTime()) / recipe.allowedTimeDiff(recipe.getCookingTime())) * 10.0);
 
 		if (quality >= 0) {
-			if (cookedTime <= 1) {
+			if (cookedTime < 1) {
 				return 0;
 			}
 			return quality;
@@ -467,13 +471,15 @@ public class BIngredients {
 		List<Ingredient> ing = new ArrayList<>(size);
 		for (; size > 0; size--) {
 			ItemLoader itemLoader = new ItemLoader(dataVersion, in, in.readUTF());
-			if (Ingredient.LOADERS.containsKey(itemLoader.getSaveID())) {
-				Ingredient loaded = Ingredient.LOADERS.get(itemLoader.getSaveID()).apply(itemLoader);
-				int amount = in.readShort();
-				if (loaded != null) {
-					loaded.setAmount(amount);
-					ing.add(loaded);
-				}
+			if (!Ingredient.LOADERS.containsKey(itemLoader.getSaveID())) {
+				P.p.errorLog("Ingredient Loader not found: " + itemLoader.getSaveID());
+				break;
+			}
+			Ingredient loaded = Ingredient.LOADERS.get(itemLoader.getSaveID()).apply(itemLoader);
+			int amount = in.readShort();
+			if (loaded != null) {
+				loaded.setAmount(amount);
+				ing.add(loaded);
 			}
 		}
 		return new BIngredients(ing, cookedTime);

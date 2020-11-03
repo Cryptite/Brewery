@@ -213,8 +213,30 @@ public class ConfigUpdater {
 			} else {
 				update18en(yml);
 			}
+			fromVersion = "2.0";
+		}
+
+		if (fromVersion.equals("2.0")) {
+			if (de) {
+				update20de();
+			} else if (lang.equals("fr")) {
+				update20fr();
+			} else {
+				update20en();
+			}
+			fromVersion = "2.1";
+		}
+
+		if (fromVersion.equals("2.1")) {
+			if (de) {
+				update21de();
+			} else if (lang.equals("fr")) {
+				update21fr();
+			} else {
+				update21en();
+			}
 			updateVersion(BConfig.configVersion);
-			fromVersion = BConfig.configVersion;
+			fromVersion = "2.1.1";
 		}
 
 		if (P.use1_13 && oldMat) {
@@ -1575,6 +1597,208 @@ public class ConfigUpdater {
 		if (index != -1) {
 			removeLine(index);
 		}
+
+	}
+
+	private void update20de() {
+		addLinesAt(new String[]{"hangoverDays", "colorInBrewer", "encodeKey"}, 1, "",
+			"# Ob das craften und das benutzen des Trank-Versiegelungs-Tisches aktiviert ist (2 Flaschen über 4 Holz) [true, true]",
+			"craftSealingTable: true",
+			"enableSealingTable: true");
+
+		addLinesAt(new String[]{"useLogBlock", "useGMInventories", "# -- Plugin Kompatibli", "# Es gibt noch viele Minecraft Items", "version"}, 1, "", "",
+			"# -- MultiServer/BungeeCord --",
+			"# Wenn Brewery auf mehreren Servern läuft und diese zB mit BungeeCord verbunden sind,",
+			"# sollte hier eine gemeinsame Datenbank eingetragen werden.",
+			"# Dann wird Betrunkenheit auf den Servern synchronisiert und encodierte Tränke können auf allen Servern benutzt werden.",
+			"",
+			"multiServerDB:",
+			"  # Soll die Datenbank-Synchronisation aktiviert sein",
+			"  enabled: false",
+			"  # Soll die Betrunkenheit von Spielern synchronisiert werden",
+			"  syncDrunkeness: true",
+			"  host: localhost",
+			"  port: '3306'",
+			"  user: minec",
+			"  password: xyz",
+			"  database: base",
+			"",
+			"",
+			"# -- Verschiedene weitere Einstellungen --",
+			"",
+			"# Ob Items in der Zweithand auch in den Kessel geworfen werden sollen [false]",
+			"useOffhandForCauldron: false");
+	}
+
+	private void update20fr() {
+		addLinesAt(new String[]{"hangoverDays", "colorInBrewer", "encodeKey"}, 1, "",
+			"# If crafting and using of the Brew Sealing Table is enabled (2 Bottles over 4 Planks) [true, true]",
+			"craftSealingTable: true",
+			"enableSealingTable: true");
+
+		addLinesAt(new String[]{"useLogBlock", "useGMInventories", "# -- Compatibilit", "# There are a lot of items in Minecraft ", "version"}, 1, "", "",
+			"# -- MultiServer/BungeeCord --",
+			"# Si Brewery est exécuté sur plusieurs serveurs connectés (via BungeeCord), une base de données partagée peut être utilisée",
+			"# ici pour synchroniser l'ivresse et pour pouvoir utiliser des boissons codées entre elles.",
+			"",
+			"multiServerDB:",
+			"  # Si l'utilisation de la base de données est activée",
+			"  enabled: false",
+			"  # Si l'ivresse des joueurs devait être synchronisée entre les serveurs",
+			"  syncDrunkeness: true",
+			"  host: localhost",
+			"  port: '3306'",
+			"  user: minec",
+			"  password: xyz",
+			"  database: base",
+			"",
+			"",
+			"# -- Divers autres paramètres --",
+			"",
+			"# If items in Offhand should be added to the cauldron as well [false]",
+			"useOffhandForCauldron: false");
+	}
+
+	private void update20en() {
+		addLinesAt(new String[]{"hangoverDays", "colorInBrewer", "encodeKey"}, 1, "",
+			"# If crafting and using of the Brew Sealing Table is enabled (2 Bottles over 4 Planks) [true, true]",
+			"craftSealingTable: true",
+			"enableSealingTable: true");
+
+		addLinesAt(new String[]{"useLogBlock", "useGMInventories", "# -- Plugin Compatibility", "# # There are a lot of items in Minecraft", "version"}, 1, "", "",
+			"# -- MultiServer/BungeeCord --",
+			"# If Brewery is running on multiple connected Servers (via BungeeCord)",
+			"# a shared Database can be used here to synchronise drunkeness and to be able to use encoded brews between them.",
+			"",
+			"multiServerDB:",
+			"  # If using the Database is enabled",
+			"  enabled: false",
+			"  # If the drunkeness of players should be synchronised between Servers",
+			"  syncDrunkeness: true",
+			"  host: localhost",
+			"  port: '3306'",
+			"  user: minec",
+			"  password: xyz",
+			"  database: base",
+			"",
+			"",
+			"# -- Various Other Settings --",
+			"",
+			"# If items in Offhand should be added to the cauldron as well [false]",
+			"useOffhandForCauldron: false");
+	}
+
+	private void update21de() {
+		int index = indexOfStart("# Wie viele Brewery Getränke in die Minecraft Fässer getan werden können");
+		if (index != -1) {
+			setLine(index, "# Ob das reifen in -Minecraft- Fässern aktiviert ist und wie viele Brewery Getränke in die diese getan werden können [6]");
+		}
+		String add = "ageInMCBarrels: true";
+		index = indexOfStart("maxBrewsInMCBarrels:");
+		if (index != -1) {
+			addLines(index, add);
+		} else {
+			addLinesAt(new String[]{"debug", "version"}, 1, "", add);
+		}
+
+		addLinesAt(new String[]{"# Hier kann angegeben werden welche Zutaten in den Kessel getan werden können"}, 1,
+			"# Es braucht nur etwas hier eingetragen werden falls der Basistrank besondere Eigenschaften wie Name und Farbe haben soll");
+
+		addLinesAt(new String[]{" # lore:", " # ingredients:"}, 1,
+			" # customModelData: Custom Model Data Modelldaten. Mit dieser Zahl kann die Tranktextur mit einem Resourcepack geändert werden");
+
+		index = indexOfStart("# servercommands: Liste von Befehlen ausgeführt vom Server wenn");
+		if (index != -1) {
+			setLine(index, "# servercommands: Liste von Befehlen ausgeführt vom -Server- wenn der Trank getrunken wird (%player_name%  %quality% benutzbar)");
+		}
+		index = indexOfStart("# playercommands: Liste von Befehlen ausgeführt vom Spieler wenn");
+		if (index != -1) {
+			setLine(index, "# playercommands: Liste von Befehlen ausgeführt vom -Spieler- wenn der Trank getrunken wird (%player_name%  %quality% benutzbar)");
+		}
+
+		addLinesAt(new String[]{"# drinktitle:", "# drinkmessage:", "# playercommands:", "# alcohol:"}, 1,
+			"# customModelData: Custom Model Data Modelldaten. Mit dieser Zahl kann die Tranktextur mit einem Resourcepack geändert werden",
+			"#   Es kann eine für alle, oder drei für die qualitäten schlecht/normal/gut agegeben werden, mit / getrennt");
+
+		addLinesAt(new String[]{"useOffhandForCauldron:", "# -- Verschiedene weitere Einstellungen", "# -- Plugin Kompatiblit"}, 1, "",
+			"# Of Fass- und Kesseldaten Async/im Hintergrund geladen werden können [true]",
+			"loadDataAsync: true");
+
+	}
+
+	private void update21fr() {
+		int index = indexOfStart("# Combien de boissons de brasserie peuvent");
+		if (index != -1) {
+			setLine(index, "# Combien de boissons de brasserie peuvent être mises dans les barils -Minecraft- [6]");
+		}
+		String add = "ageInMCBarrels: true";
+		index = indexOfStart("maxBrewsInMCBarrels:");
+		if (index != -1) {
+			addLines(index, add);
+		} else {
+			addLinesAt(new String[]{"debug", "version"}, 1, "", add);
+		}
+
+		addLinesAt(new String[]{"# Quels sont les ingrédients acceptés par le chaudron"}, 1,
+			"# Il vous suffit d'ajouter quelque chose ici si vous voulez spécifier un nom ou une couleur pour la potion de base");
+
+		addLinesAt(new String[]{" # lore:", " # ingredients:"}, 1,
+			" # customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.");
+
+		index = indexOfStart("# servercommands: Liste des commandes exécutées par le serveur");
+		if (index != -1) {
+			setLine(index, "# servercommands: Liste des commandes exécutées par le -serveur- lors de la consommation de la potion (Peut utiliser %player_name%  %quality%)");
+		}
+		index = indexOfStart("# playercommands: Liste des commandes exécutées par le joueur");
+		if (index != -1) {
+			setLine(index, "# playercommands: Liste des commandes exécutées par le -joueur- lors de la consommation de la potion (Peut utiliser %player_name%  %quality%)");
+		}
+
+		addLinesAt(new String[]{"# drinktitle:", "# drinkmessage:", "# playercommands:", "# alcohol:"}, 1,
+			"# customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.",
+			"#   Can specify one for all, or one for each quality, separated by /");
+
+		addLinesAt(new String[]{"useOffhandForCauldron:", "# -- Divers autres param", "# -- Compatibilité entre Plugins"}, 1, "",
+			"# If Barrel and Cauldron data can be loaded Async/in the Background [true]",
+			"loadDataAsync: true");
+
+	}
+
+	private void update21en() {
+		int index = indexOfStart("# How many Brewery drinks can be put into");
+		if (index != -1) {
+			setLine(index, "# If aging in -Minecraft- Barrels in enabled [true] and how many Brewery drinks can be put into them [6]");
+		}
+		String add = "ageInMCBarrels: true";
+		index = indexOfStart("maxBrewsInMCBarrels:");
+		if (index != -1) {
+			addLines(index, add);
+		} else {
+			addLinesAt(new String[]{"debug", "version"}, 1, "", add);
+		}
+
+		addLinesAt(new String[]{"# Which Ingredients are accepted by the Cauldron and the base potion resulting"}, 1,
+			"# You only need to add something here if you want to specify a custom name or color for the base potion");
+
+		addLinesAt(new String[]{" # lore:", " # ingredients:"}, 1,
+			" # customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.");
+
+		index = indexOfStart("# servercommands: List of Commands executed by the Server when drinking");
+		if (index != -1) {
+			setLine(index, "# servercommands: List of Commands executed by the -Server- when drinking the brew (Can use %player_name%  %quality%)");
+		}
+		index = indexOfStart("# playercommands: List of Commands executed by the Player when drinking the brew");
+		if (index != -1) {
+			setLine(index, "# playercommands: List of Commands executed by the -Player- when drinking the brew (Can use %player_name%  %quality%)");
+		}
+
+		addLinesAt(new String[]{"# drinktitle:", "# drinkmessage:", "# playercommands:", "# alcohol:"}, 1,
+			"# customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.",
+			"#   Can specify one for all, or one for each quality, separated by /");
+
+		addLinesAt(new String[]{"useOffhandForCauldron:", "# -- Various Other Settings", "# -- Plugin Compatibility"}, 1, "",
+			"# If Barrel and Cauldron data can be loaded Async/in the Background [true]",
+			"loadDataAsync: true");
 
 	}
 

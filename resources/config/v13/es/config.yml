@@ -1,11 +1,11 @@
+# Traducido por MrNizzy
 # config for Brewery.jar
-
 
 # -- Settings --
 # Defaults are written in []
 
 # Languagefile to be used (found in plugins/Brewery/languages)
-language: en
+language: es
 
 # If the player wakes up at /home when logging in after excessive drinking (/home plugin must be installed!) [true]
 enableHome: true
@@ -36,7 +36,7 @@ pukeItem: Soul_Sand
 
 # Time in seconds until the pukeitems despawn, (mc default is 300 = 5 min) [60]
 # If the item despawn time was changed in the spigot.yml, the pukeDespawntime changes as well.
-pukeDespawntime: 60
+pukeDespawntime: 10
 
 # Consumable Item/strength. Decreases the alcohol level by <strength> when consumed. (list)
 drainItems:
@@ -104,9 +104,9 @@ customItems:
   ex-item:
     # A Barrier item called Wall and has the given line in its lore
     material: Barrier
-    name: 'Wall'
+    name: 'Pared'
     lore:
-      - '&7Very well protected'
+      - '&7Muy bien protegido'
 
   ex-item2:
     # Using matchAny only one of the following has to match.
@@ -161,16 +161,16 @@ cauldron:
 
   # -- One Ingredient: --
   wheat:
-    name: Fermented wheat
+    name: Trigo fermentado
     ingredients: Wheat
 
   sugarcane:
-    name: Sugar brew
+    name: Cerveza de azúcar
     ingredients: Sugar_Cane
     color: 'f1ffad' # yellowish green
 
   sugar:
-    name: Sugarwater
+    name: Azucar agua
     ingredients: Sugar
 
   apple:
@@ -183,139 +183,139 @@ cauldron:
     color: RED
 
   potato:
-    name: Potatomash
+    name: Puré de papa
     ingredients: Potato
 
   grass:
-    name: Boiled herbs
+    name: Hierbas hervidas
     ingredients: Grass
     color: '99ff66' # bright green
 
   rmushroom:
-    name: Mushroom brew
+    name: Sopa de champiñones
     ingredients: Red_Mushroom
     color: 'ff5c33' # amber red
 
   bmushroom:
-    name: Mushroom brew
+    name: Sopa de hongos
     ingredients: Brown_Mushroom
     color: 'c68c53' # brighter brown
 
   cocoa:
-    name: Chocolately brew
+    name: Bebida de chocolate
     ingredients: Cocoa_Beans
     color: '804600' # mocca
 
   milk:
-    name: Milky water
+    name: Agua lechosa
     ingredients: Milk_Bucket
     color: BRIGHT_GREY
 
   bl_flow:
-    name: Blueish brew
+    name: Cerveza azulada
     ingredients: blue-flowers
     color: '0099ff' # sky blue
 
   cactus:
-    name: Agave brew
+    name: Cerveza de Agave
     ingredients: cactus
     color: '00b300' # cactus green
 
   poi_potato:
-    name: Poisonous Broth
+    name: Caldo venenoso
     ingredients: Poisonous_Potato
 
   egg:
-    name: Sticky brew
+    name: Brebaje pegajoso
     ingredients: Egg
 
 
   oak_sapling:
-    name: Stringy hebry broth
+    name: Caldo de Hebry fibroso
     ingredients: Oak_Sapling
 
   vine:
-    name: Boiled herbs
+    name: Hierbas hervidas
     ingredients: vine
     color: '99ff66' # bright green
 
   rot_flesh:
-    name: Foul pest
+    name: Plaga asquerosa
     ingredients: Rotten_Flesh
     color: '263300' # brown green
 
   melon:
-    name: Melon juice
+    name: Jugo de melon
     ingredients: melon_slice
 
   wheat_seeds:
-    name: Bitter brew
+    name: Cerveza amarga
     ingredients: Wheat_Seeds
 
   melon_seeds:
-    name: Bitter brew
+    name: Cerveza amarga
     ingredients: Melon_Seeds
 
   pumpkin_seeds:
-    name: Bitter brew
+    name: Cerveza amarga
     ingredients: Pumpkin_Seeds
 
   bone_meal:
-    name: Bony Brew
+    name: Brebaje huesudo
     ingredients: bone_meal
     color: BRIGHT_GREY
 
   cookie:
-    name: Chocolately sap
+    name: Savia de chocolate
     ingredients: Cookie
     color: '804600' # mocca
 
   fer_spid_eye:
-    name: Fermented Eye
+    name: Ojo Fermentado
     ingredients: Fermented_Spider_Eye
 
   ghast_tear:
-    name: Sad brew
+    name: Cerveza triste
     ingredients: ghast_tear
 
   snowball:
-    name: Icewater
+    name: Agua congelada
     ingredients: Snowball
 
   Gold_Nugget:
-    name: Glistering brew
+    name: Brebaje reluciente
     ingredients: Gold_Nugget
     color: 'ffd11a' # gold
 
   glowstone_dust:
-    name: Glowing brew
+    name: Cerveza brillante
     ingredients: Glowstone_Dust
     color: 'ffff33' # bright yellow
 
   # -- Multiple Ingredients: --
   applemead_base:
-    name: Apple-Sugar brew
+    name: Cerveza de manzana y azúcar
     ingredients:
       - Sugar_Cane/3
       - Apple
     color: 'e1ff4d' # greenish yellow
 
   poi_grass:
-    name: Boiled acidy herbs
+    name: Hierbas ácidas hervidas
     ingredients:
       - Grass
       - Poisonous_Potato
     color: '99ff66' # bright green
 
   juniper:
-    name: Juniper brew
+    name: Brebaje de enebro
     ingredients:
       - blue-flowers
       - wheat
     color: '00ccff' # aqua
 
   gin_base:
-    name: Fruity juniper brew
+    name: Brebaje de enebro afrutado
     ingredients:
       - blue-flowers
       - wheat
@@ -323,7 +323,7 @@ cauldron:
     color: '66e0ff' # lighter aqua
 
   eggnog_base:
-    name: Smooth egg mixture
+    name: Mezcla de huevo suave
     ingredients:
       - egg
       - sugar
@@ -406,7 +406,7 @@ recipes:
       - POISON/1-0/20-0
 
   wheatbeer:
-    name: Skunky Wheatbeer/Wheatbeer/Fine Wheatbeer
+    name: Cerveza de trigo Skunky/Cerveza de trigo/Cerveza de trigo fino
     ingredients:
       - Wheat/3
     cookingtime: 8
@@ -416,10 +416,10 @@ recipes:
     color: 'ffb84d' # Orange
     difficulty: 1
     alcohol: 5
-    lore: +++ &8Refreshing
+    lore: +++ &8Refrescante
 
   beer:
-    name: Skunky Beer/Beer/Fine Beer
+    name: Cerveza Skunky/Cerveza/Cerveza fina
     ingredients:
       - Wheat/6
     cookingtime: 8
@@ -429,11 +429,11 @@ recipes:
     color: 'ffd333' # Bright Orange
     difficulty: 1
     lore:
-      - +++ &8Crisp taste
+      - +++ &8Sabor crujiente
     alcohol: 6
 
   darkbeer:
-    name: Skunky Darkbeer/Darkbeer/Fine Darkbeer
+    name: Skunky cerveza oscura/Cerveza oscura/Cerveza oscura fina
     ingredients:
       - Wheat/6
     cookingtime: 8
@@ -443,11 +443,11 @@ recipes:
     color: '650013' # Dark Red-Brown
     difficulty: 2
     lore:
-      - +++ &8Roasted taste
+      - +++ &8Sabor tostado
     alcohol: 7
 
   wine:
-    name: Red Wine
+    name: Vino tinto
     ingredients:
       - Sweet_Berries/5
     cookingtime: 5
@@ -458,13 +458,13 @@ recipes:
     difficulty: 4
     alcohol: 8
     lore:
-      - '+ &8Harsh'
-      - '+ &8Corked'
-      - '++ &8Mellow'
-      - '+++ &8Full-Bodied'
+      - '+ &8Duro'
+      - '+ &8Con sabor de corcho'
+      - '++ &8Meloso'
+      - '+++ &8Con cuerpo'
 
   mead:
-    name: Awkward Mead/Mead/&6Golden Mead
+    name: Aguamiel incómoda/Hidromiel/&6hidromiel dorado
     ingredients:
       - Sugar_Cane/6
     cookingtime: 3
@@ -474,11 +474,11 @@ recipes:
     color: ORANGE
     difficulty: 2
     lore:
-      - +++ Has a golden shine
+      - +++ Tiene un brillo dorado
     alcohol: 9
 
   ap_mead:
-    name: Apple Mead/Sweet Apple Mead/&6Sweet Golden Apple Mead
+    name: Aguamiel de manzana/Aguamiel de manzana dulce/&6Aguamiel de manzana de oro dulce
     ingredients:
       - Sugar_Cane/6
       - Apple/2
@@ -490,14 +490,14 @@ recipes:
     difficulty: 4
     alcohol: 11
     lore:
-      - +Is there any Apple in this?
-      - ++Refreshing taste of Apple
-      - +++Sweetest hint of Apple
+      - +¿Hay alguna manzana en esto?
+      - ++Sabor refrescante de manzana
+      - +++El toque más dulce de manzana
     effects:
       - WATER_BREATHING/1-2/150
 
   cidre:
-    name: Poor Cidre/Apple Cider/Great Apple Cider
+    name: Sidra pobre/Sidra de manzana/Gran Sidra de manzana
     ingredients:
       - Apple/14
     cookingtime: 7
@@ -509,7 +509,7 @@ recipes:
     alcohol: 7
 
   apple_liquor:
-    name: Sour Apple Liquor/Apple Liquor/Calvados
+    name: Licor de Manzana Agria/Licor de Manzana/Calvados
     ingredients:
       - Apple/12
     cookingtime: 16
@@ -520,11 +520,11 @@ recipes:
     difficulty: 5
     alcohol: 14
     lore:
-      - +Sour like Acid
-      - +++ Good Apple Liquor
+      - +Agrio como el ácido
+      - +++ Buen licor de manzana
 
   whiskey:
-    name: Unsightly Whiskey/Whiskey/Scotch Whiskey
+    name: Antiestético Whisky/Whisky/Whisky escocés
     ingredients:
       - Wheat/10
     cookingtime: 10
@@ -535,10 +535,10 @@ recipes:
     color: ORANGE
     difficulty: 7
     alcohol: 26
-    lore: '&7Single Malt'
+    lore: '&7Solo Malta'
 
   rum:
-    name: Bitter Rum/Spicy Rum/&6Golden Rum
+    name: Ron amargo/Ron picante/&6Ron dorado
     ingredients:
       - Sugar_Cane/18
     cookingtime: 6
@@ -553,12 +553,12 @@ recipes:
       - FIRE_RESISTANCE/1/20-100
       - POISON/1-0/30-0
     lore:
-      - +&8Too bitter to drink
-      - ++&8Spiced by the barrel
-      - +++&eSpiced Gold
+      - +&8Demasiado amargo para beber
+      - ++&8Condimentado por el barril
+      - +++&eOro especiado
 
   vodka:
-    name: Lousy Vodka/Vodka/Russian Vodka
+    name: Vodka pésimo/Vodka/Vodka ruso
     ingredients:
       - Potato/10
     cookingtime: 15
@@ -567,13 +567,13 @@ recipes:
     color: WHITE
     difficulty: 4
     alcohol: 20
-    lore: + &8Almost undrinkable
+    lore: + &8Casi imposible de beber
     effects:
       - WEAKNESS/15
       - POISON/10
 
   shroom_vodka:
-    name: Mushroom Vodka/Mushroom Vodka/Glowing Mushroom Vodka
+    name: Vodka de champiñones/Vodka de champiñones/Vodka de champiñones resplandeciente
     ingredients:
       - Potato/10
       - Red_Mushroom/3
@@ -584,7 +584,7 @@ recipes:
     color: 'ff9999' # Pink-Red
     difficulty: 7
     alcohol: 18
-    lore: +++&aGlows in the dark
+    lore: +++&aBrilla en la oscuridad
     effects:
       - WEAKNESS/80
       - CONFUSION/27
@@ -593,7 +593,7 @@ recipes:
       - SLOW/10-3
 
   gin:
-    name: Pale Gin/Gin/Old Tom Gin
+    name: Ginebra pálido/Ginebra/Ginebra Old Tom
     ingredients:
       - Wheat/9
       - blue-flowers/6  # Custom-Item: Blue Orchids or Cornflowers
@@ -604,10 +604,10 @@ recipes:
     difficulty: 6
     alcohol: 20
     lore:
-      - ++ With the
-      - ++ taste of juniper
-      - +++ Perfectly finished off
-      - +++ with juniper
+      - ++ Con el
+      - ++ sabor de enebro
+      - +++ Perfectamente terminado
+      - +++ con enebro
 
   tequila:
     name: Mezcal/Tequila/Tequila anejo
@@ -620,10 +620,10 @@ recipes:
     wood: 1
     age: 12
     alcohol: 20
-    lore: Desert spirit
+    lore: Espíritu del desierto
 
   absinthe:
-    name: Poor Absinthe/Absinthe/Strong Absinthe
+    name: Absenta pobre/Absenta/Absenta fuerte
     ingredients:
       - Grass/15
     cookingtime: 3
@@ -634,10 +634,10 @@ recipes:
     alcohol: 42
     effects:
       - POISON/15-25
-    lore: '+++&8High proof liquor'
+    lore: '+++&8Licor de alta prueba'
 
   gr_absinthe:
-    name: Poor Absinthe/Green Absinthe/Bright Green Absinthe
+    name: Absenta pobre/Absenta verde/Absenta verde brillante
     ingredients:
       - Grass/17
       - Poisonous_Potato/2
@@ -651,10 +651,10 @@ recipes:
       - POISON/25-40
       - HARM/2
       - NIGHT_VISION/40-60
-    lore: '&aLooks poisonous'
+    lore: '&aSe ve venenoso'
 
   potato_soup:
-    name: Potato soup
+    name: Sopa de papas
     ingredients:
       - Potato/5
       - Grass/3
@@ -665,20 +665,20 @@ recipes:
       - HEAL/0-1
 
   coffee:
-    name: Stale Coffee/Coffee/Strong Coffee
+    name: Café rancio/Café fuerte/Café Colombiano
     ingredients:
       - Cocoa_Beans/12
       - Milk_Bucket/2
     cookingtime: 2
     color: BLACK
     difficulty: 3
-    lore: + &8Probably a week old
+    lore: + &8Probablemente una semana de edad
     effects:
       - REGENERATION/1/2-5
       - SPEED/1/30-140
 
   eggnog:
-    name: Egg Liquor/Eggnog/Advocaat
+    name: Licor de huevo/Ponche de huevo/Advotcaat
     ingredients:
       - Egg/5
       - Sugar/2
@@ -689,7 +689,7 @@ recipes:
     alcohol: 10
     wood: 0
     age: 3
-    lore: Made with raw egg
+    lore: Hecho con huevo crudo
 
 
 

@@ -46,6 +46,10 @@ drainItems:
 # Time (in days) that drunkeness-data stays in memory after a player goes offline, to apply hangover etc. [7]
 hangoverDays: 7
 
+# If crafting and using of the Brew Sealing Table is enabled (2 Bottles over 4 Planks) [true, true]
+craftSealingTable: true
+enableSealingTable: true
+
 # Color the Item information (lore) depending on quality while it is 1. in a barrel and/or 2. in a brewing stand [true, true]
 colorInBarrels: true
 colorInBrewer: true
@@ -59,13 +63,15 @@ alwaysShowAlc: false
 # If a Large Barrel can be opened by clicking on any of its blocks, not just Spigot or Sign. This is always true for Small Barrels. [true]
 openLargeBarrelEverywhere: true
 
-# How many Brewery drinks can be put into the Minecraft barrels [6]
+# If aging in -Minecraft- Barrels in enabled [true] and how many Brewery drinks can be put into them [6]
+ageInMCBarrels: true
 maxBrewsInMCBarrels: 6
 
 # The used Ingredients and other brewing-data is saved to all Brewery Items. To prevent
 # hacked clients from reading what exactly was used to brew an item, the data can be encoded/scrambled.
 # This is a fast process to stop players from hacking out recipes, once they get hold of a brew.
 # Only drawback: brew items can only be used on another server with the same encodeKey.
+# When using Brews on multiple (BungeeCord) Servers, define a shared Database below at 'multiServerDB'
 # So enable this if you want to make recipe cheating harder, but don't share any brews by world download, schematics, or other means. [false]
 enableEncode: false
 encodeKey: 0
@@ -81,7 +87,7 @@ autosave: 3
 debug: false
 
 # Config Version
-version: '2.0'
+version: '2.1.1'
 oldMat: true
 
 
@@ -120,6 +126,7 @@ customItems:
 
 # -- Ingredients in the Cauldron --
 # Which Ingredients are accepted by the Cauldron and the base potion resulting from them
+# You only need to add something here if you want to specify a custom name or color for the base potion
 
  # name: Name of the base potion coming out of the Cauldron (Formatting codes possible: such as &6)
  # ingredients: List of 'material/amount'
@@ -130,6 +137,7 @@ customItems:
  #   Usable Colors: DARK_RED, RED, BRIGHT_RED, ORANGE, PINK, BLUE, CYAN, WATER, GREEN, BLACK, GREY, BRIGHT_GREY
  #   Or RGB colors (hex: for example '99FF33') (with '') (search for "HTML color" on the internet)
  # lore: List of additional text on the base potion. (Formatting codes possible: such as &6)
+ # customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.
 
 cauldron:
   ex:
@@ -141,6 +149,7 @@ cauldron:
     lore:
       - An example for a Base Potion
       - This is how it comes out of a Cauldron
+    customModelData: 545
 
   # -- One Ingredient: --
   wheat:
@@ -213,10 +222,12 @@ cauldron:
 # alcohol: Absolute amount of alcohol 0-100 in a perfect potion (will be added directly to the player, where 100 means fainting)
 # lore: List of additional text on the finished brew. (Formatting codes possible: such as &6)
 #   Specific lore for quality possible, using + bad, ++ normal, +++ good, added to the front of the line.
-# servercommands: List of Commands executed by the Server when drinking the brew
-# playercommands: List of Commands executed by the Player when drinking the brew
+# servercommands: List of Commands executed by the -Server- when drinking the brew (Can use %player_name%  %quality%)
+# playercommands: List of Commands executed by the -Player- when drinking the brew (Can use %player_name%  %quality%)
 # drinkmessage: Chat-message to the Player when drinking the Brew
 # drinktitle: Title on Screen to the Player when drinking the Brew
+# customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.
+#   Can specify one for all, or one for each quality, separated by /
 # effects: List of effect/level/duration  Special potion-effect when drinking, duration in sek.
 #   Suffix name with 'X' to hide effect from label. Sample: 'POISONX/2/10' (WEAKNESS, INCREASE_DAMAGE, SLOW and SPEED are always hidden.)
 #   Effects are always hidden in 1.9 and newer, because of changes in the potion mechanics.
@@ -258,6 +269,7 @@ recipes:
       - homes
       drinkmessage: Tastes good
       drinktitle: Warms you from inside
+      customModelData: 556/557/557
       effects:
       - FIRE_RESISTANCE/20
       - HEAL/1
@@ -421,6 +433,31 @@ useCitadel: true
 
 # Enable the Logging of Barrel Inventories to LogBlock [true]
 useLogBlock: true
+
+
+# -- MultiServer/BungeeCord --
+# If Brewery is running on multiple connected Servers (via BungeeCord)
+# a shared Database can be used here to synchronise drunkeness and to be able to use encoded brews between them.
+
+multiServerDB:
+  # If using the Database is enabled
+  enabled: false
+  # If the drunkeness of players should be synchronised between Servers
+  syncDrunkeness: true
+  host: localhost
+  port: '3306'
+  user: minec
+  password: xyz
+  database: base
+
+
+# -- Various Other Settings --
+
+# If items in Offhand should be added to the cauldron as well [false]
+useOffhandForCauldron: false
+
+# If Barrel and Cauldron data can be loaded Async/in the Background [true]
+loadDataAsync: true
 
 
 # -- Chat Distortion Settings --

@@ -40,6 +40,25 @@ public class PlayerListener implements Listener {
 			return;
 		}
 
+
+		if (P.use1_14 && BSealer.isBSealer(clickedBlock)) {
+			event.setCancelled(true);
+			if (BConfig.enableSealingTable) {
+				BSealer sealer = new BSealer(player);
+				event.getPlayer().openInventory(sealer.getInventory());
+			} else {
+				P.p.msg(player, P.p.languageReader.get("Error_SealingTableDisabled"));
+			}
+			return;
+		}
+		if (P.use1_14 && type == Material.BARREL) {
+			if (!player.hasPermission("brewery.openbarrel.mc")) {
+				event.setCancelled(true);
+				P.p.msg(player, P.p.languageReader.get("Error_NoPermissions"));
+			}
+			return;
+		}
+
 		// Do not process Off Hand for Barrel interaction
 		if (P.use1_9 && event.getHand() != EquipmentSlot.HAND) {
 			return;

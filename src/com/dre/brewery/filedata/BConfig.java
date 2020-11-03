@@ -1,5 +1,6 @@
 package com.dre.brewery.filedata;
 
+import com.dre.brewery.BSealer;
 import com.dre.brewery.Brew;
 import com.dre.brewery.DistortChat;
 import com.dre.brewery.MCBarrel;
@@ -38,7 +39,7 @@ import java.util.Map;
 
 public class BConfig {
 
-	public static final String configVersion = "2.0";
+	public static final String configVersion = "2.1.1";
 	public static boolean updateCheck;
 	public static CommandSender reloader;
 
@@ -53,9 +54,14 @@ public class BConfig {
 	public static boolean useGMInventories; // GamemodeInventories
 	public static Boolean hasSlimefun = null; // Slimefun ; Null if not checked
 	public static Boolean hasMMOItems = null; // MMOItems ; Null if not checked
+	public static boolean hasChestShop;
 
 	// Barrel
 	public static boolean openEverywhere;
+	public static boolean loadDataAsync;
+
+	// Cauldron
+	public static boolean useOffhandForCauldron;
 
 	//BPlayer
 	public static Map<Material, Integer> drainItems = new HashMap<>();// DrainItem Material and Strength
@@ -74,6 +80,10 @@ public class BConfig {
 	public static boolean enableEncode;
 	public static boolean alwaysShowQuality; // Always show quality stars
 	public static boolean alwaysShowAlc; // Always show alc%
+
+	//Features
+	public static boolean craftSealingTable; // Allow Crafting of Sealing Table
+	public static boolean enableSealingTable; // Allow Usage of Sealing Table
 
 	//Item
 	public static List<RecipeItem> customItems = new ArrayList<>();
@@ -209,6 +219,7 @@ public class BConfig {
 		// The item util has been removed in Vault 1.7+
 		hasVault = plMan.isPluginEnabled("Vault")
 			&& Integer.parseInt(plMan.getPlugin("Vault").getDescription().getVersion().split("\\.")[1]) <= 6;
+		hasChestShop = plMan.isPluginEnabled("ChestShop");
 
 		// various Settings
 		DataSave.autosave = config.getInt("autosave", 3);
@@ -221,15 +232,28 @@ public class BConfig {
 		enablePuke = config.getBoolean("enablePuke", false);
 		pukeDespawntime = config.getInt("pukeDespawntime", 60) * 20;
 		homeType = config.getString("homeType", null);
+		craftSealingTable = config.getBoolean("craftSealingTable", false);
+		enableSealingTable = config.getBoolean("enableSealingTable", false);
 		colorInBarrels = config.getBoolean("colorInBarrels", false);
 		colorInBrewer = config.getBoolean("colorInBrewer", false);
 		alwaysShowQuality = config.getBoolean("alwaysShowQuality", false);
 		alwaysShowAlc = config.getBoolean("alwaysShowAlc", false);
 		enableEncode = config.getBoolean("enableEncode", false);
 		openEverywhere = config.getBoolean("openLargeBarrelEverywhere", false);
-		MCBarrel.maxBrews = config.getInt("maxBrewsInMCBarrels", 6);
+		useOffhandForCauldron = config.getBoolean("useOffhandForCauldron", false);
+		loadDataAsync = config.getBoolean("loadDataAsync", true);
+
+		if (P.use1_14) {
+			MCBarrel.maxBrews = config.getInt("maxBrewsInMCBarrels", 6);
+			MCBarrel.enableAging = config.getBoolean("ageInMCBarrels", true);
+		}
 
 		Brew.loadSeed(config, new File(P.p.getDataFolder(), "config.yml"));
+
+		if (!P.use1_13) {
+			// world.getBlockAt loads Chunks in 1.12 and lower. Can't load async
+			loadDataAsync = false;
+		}
 
 		PluginItem.registerForConfig("brewery", BreweryPluginItem::new);
 		PluginItem.registerForConfig("mmoitems", MMOItemsPluginItem::new);
@@ -328,6 +352,15 @@ public class BConfig {
 		}
 		DistortChat.log = config.getBoolean("logRealChat", false);
 		DistortChat.doSigns = config.getBoolean("distortSignText", false);
+
+		// Register Sealing Table Recipe
+		if (P.use1_14) {
+			if (craftSealingTable && !BSealer.recipeRegistered) {
+				BSealer.registerRecipe();
+			} else if (!craftSealingTable && BSealer.recipeRegistered) {
+				BSealer.unregisterRecipe();
+			}
+		}
 
 		// init SQL
 		if (sqlSync != null) {

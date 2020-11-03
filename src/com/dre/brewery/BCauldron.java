@@ -1,6 +1,7 @@
 package com.dre.brewery;
 
 import com.dre.brewery.api.events.IngedientAddEvent;
+import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.recipe.BCauldronRecipe;
 import com.dre.brewery.recipe.RecipeItem;
 import com.dre.brewery.utility.BUtil;
@@ -31,12 +32,11 @@ public class BCauldron {
 
 	private BIngredients ingredients = new BIngredients();
 	private final Block block;
-	private int state = 1;
+	private int state = 0;
 	private boolean changed = false;
 
 	public BCauldron(Block block) {
 		this.block = block;
-		bcauldrons.put(block, this);
 	}
 
 	// loading from file
@@ -44,7 +44,6 @@ public class BCauldron {
 		this.block = block;
 		this.state = state;
 		this.ingredients = ingredients;
-		bcauldrons.put(block, this);
 	}
 
 	public void onUpdate() {
@@ -69,9 +68,23 @@ public class BCauldron {
 
 		ingredients.add(ingredient, rItem);
 		block.getWorld().playEffect(block.getLocation(), Effect.EXTINGUISH, 0);
-		if (state > 1) {
+		if (state > 0) {
 			state--;
 		}
+	}
+
+	/**
+	 * Get the Block that this BCauldron represents
+	 */
+	public Block getBlock() {
+		return block;
+	}
+
+	/**
+	 * Get the State (Time in Minutes) that this Cauldron currently has
+	 */
+	public int getState() {
+		return state;
 	}
 
 	// get cauldron by Block
@@ -99,6 +112,7 @@ public class BCauldron {
 			BCauldron bcauldron = get(block);
 			if (bcauldron == null) {
 				bcauldron = new BCauldron(block);
+				BCauldron.bcauldrons.put(block, bcauldron);
 			}
 
 			IngedientAddEvent event = new IngedientAddEvent(player, block, bcauldron, ingredient.clone(), rItem);
@@ -255,7 +269,7 @@ public class BCauldron {
 							materialInHand = item.getType();
 							handSwap = true;
 						} else {
-							item = event.getItem();
+							item = BConfig.useOffhandForCauldron ? event.getItem() : null;
 						}
 					}
 				}
@@ -267,18 +281,21 @@ public class BCauldron {
 				return;
 			}
 			if (ingredientAdd(clickedBlock, item, player)) {
-				boolean isBucket = item.getType().equals(Material.WATER_BUCKET)
-					|| item.getType().equals(Material.LAVA_BUCKET)
-					|| item.getType().equals(Material.MILK_BUCKET);
+				boolean isBucket = item.getType().name().endsWith("_BUCKET");
+				boolean isBottle = LegacyUtil.isBottle(item.getType());
 				if (item.getAmount() > 1) {
 					item.setAmount(item.getAmount() - 1);
 
 					if (isBucket) {
 						giveItem(player, new ItemStack(Material.BUCKET));
+					} else if (isBottle) {
+						giveItem(player, new ItemStack(Material.GLASS_BOTTLE));
 					}
 				} else {
 					if (isBucket) {
 						setItemInHand(event, Material.BUCKET, handSwap);
+					} else if (isBottle) {
+						setItemInHand(event, Material.GLASS_BOTTLE, handSwap);
 					} else {
 						setItemInHand(event, Material.AIR, handSwap);
 					}
@@ -330,7 +347,7 @@ public class BCauldron {
 				}
 
 				config.set(prefix + ".block", cauldron.block.getX() + "/" + cauldron.block.getY() + "/" + cauldron.block.getZ());
-				if (cauldron.state != 1) {
+				if (cauldron.state != 0) {
 					config.set(prefix + ".state", cauldron.state);
 				}
 				config.set(prefix + ".ingredients", cauldron.ingredients.serializeIngredients());

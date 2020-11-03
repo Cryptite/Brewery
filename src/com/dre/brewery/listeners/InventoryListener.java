@@ -1,10 +1,6 @@
 package com.dre.brewery.listeners;
 
-import com.dre.brewery.BDistiller;
-import com.dre.brewery.Barrel;
-import com.dre.brewery.Brew;
-import com.dre.brewery.MCBarrel;
-import com.dre.brewery.P;
+import com.dre.brewery.*;
 import com.dre.brewery.filedata.BConfig;
 import com.dre.brewery.lore.BrewLore;
 import org.bukkit.Material;
@@ -16,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -180,6 +177,7 @@ public class InventoryListener implements Listener {
 	public void onInventoryClickMCBarrel(InventoryClickEvent event) {
 		if (!P.use1_14) return;
 		if (event.getInventory().getType() != InventoryType.BARREL) return;
+		if (!MCBarrel.enableAging) return;
 
 		Inventory inv = event.getInventory();
 		for (MCBarrel barrel : MCBarrel.openBarrels) {
@@ -191,6 +189,17 @@ public class InventoryListener implements Listener {
 		MCBarrel barrel = new MCBarrel(inv);
 		MCBarrel.openBarrels.add(barrel);
 		barrel.clickInv(event);
+	}
+
+	// Handle the Brew Sealer Inventory
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onInventoryClickBSealer(InventoryClickEvent event) {
+		if (!P.use1_13) return;
+		InventoryHolder holder = event.getInventory().getHolder();
+		if (!(holder instanceof BSealer)) {
+			return;
+		}
+		((BSealer) holder).clickInv();
 	}
 
 	//public static boolean opening = false;
@@ -219,6 +228,7 @@ public class InventoryListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onInventoryOpen(InventoryOpenEvent event) {
 		if (!P.use1_14) return;
+		if (!MCBarrel.enableAging) return;
 
 		/*Barrel x = null;
 		if (event.getInventory().getHolder() instanceof Barrel) {
@@ -289,6 +299,11 @@ public class InventoryListener implements Listener {
 
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent event) {
+		if (!P.use1_13) return;
+		if (event.getInventory().getHolder() instanceof BSealer) {
+			((BSealer) event.getInventory().getHolder()).closeInv();
+		}
+
 		if (!P.use1_14) return;
 
 		// Barrel Closing Sound
@@ -298,7 +313,7 @@ public class InventoryListener implements Listener {
 		}
 
 		// Check for MC Barrel
-		if (event.getInventory().getType() == InventoryType.BARREL) {
+		if (MCBarrel.enableAging && event.getInventory().getType() == InventoryType.BARREL) {
 			Inventory inv = event.getInventory();
 			for (Iterator<MCBarrel> iter = MCBarrel.openBarrels.iterator(); iter.hasNext(); ) {
 				MCBarrel barrel = iter.next();

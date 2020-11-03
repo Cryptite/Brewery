@@ -4,6 +4,7 @@ Brew_BadPotion: Verdorbenes Gebräu
 Brew_BarrelRiped: Fassgereift
 Brew_DistillUndefined: Graues Destillat
 Brew_Distilled: Destilliert
+Brew_LessDistilled: Wenig Destilliert
 Brew_HundredsOfYears: Hunderte Jahre
 Brew_Ingredients: Zutaten
 Brew_MinutePluralPostfix: n
@@ -33,6 +34,9 @@ CMD_NonStatic: '&eTrank ist wieder veränderlich und kann normal gereift oder de
 # Error
 Error_ConfigUpdate: 'Unbekannte Brewery Config Version: v&v1, Config wurde nicht geupdated!'
 Error_ItemNotPotion: '&cDas Item in deiner Hand konnte nicht als Trank identifiziert werden'
+Error_SealingTableDisabled: '&cDer Trankversiegler ist deaktiviert'
+Error_SealedAlwaysStatic: 'Versiegelte Tränke sind immer unveränderlich!'
+Error_AlreadyUnlabeled: '&cDer Trank in deiner Hand ist bereits Entlabelt!'
 Error_NoBarrelAccess: '&cDu hast keine Rechte dieses Fass zu öffnen!'
 Error_NoBrewName: '&cKein Rezept mit Namen: "&v1&c" gefunden!'
 Error_NoPermissions: '&cDu hast keine Rechte dies zu tun!'
@@ -40,12 +44,13 @@ Error_PlayerCommand: '&cDieser Befehl kann nur als Spieler ausgeführt werden'
 Error_Recipeload: '&cEs konnten nicht alle Rezepte wiederhergesellt werden: Siehe Serverlog!'
 Error_ShowHelp: 'Benutze &6/brew help &fum die Hilfe anzuzeigen'
 Error_UnknownCommand: Unbekannter Befehl
-Error_YmlRead: 'config.yml konnte nicht gelesen werden, ist die Datei im korrekten yml-Format (korrekte Leerzeichen usw.)?'
+Error_YmlRead: 'config.yml konnte nicht gelesen werden, ist die Datei im korrekten yml-Format (korrekte Leerzeichen, Strings mit '' '' usw.)?'
 
 # Etc
 Etc_Page: Seite
 Etc_Usage: 'Benutzung:'
 Etc_Barrel: Fass
+Etc_SealingTable: Trankversiegler
 
 # Help
 Help_Copy: '&6/brew Copy [Anzahl]&9 Kopiert den Trank in deiner Hand'
@@ -57,6 +62,7 @@ Help_Player: '&6/brew <Spieler> <%Trunkenheit> [Qualität]&9 Setzt Trunkenheit (
 Help_Reload: '&6/brew reload &9Config neuladen'
 Help_Configname: '&6/brew ItemName &9Zeigt Name für die Config vom Item in der Hand'
 Help_UnLabel: '&6/brew UnLabel &9Entfernt die genaue Beschriftung des Trankes'
+Help_Seal: '&6/brew Seal &9Tränke für den Verkauf versiegeln'
 Help_Wakeup: '&6/brew Wakeup List <Seite>&9 Listet alle Aufwachpunkte auf'
 Help_WakeupAdd: '&6/brew Wakeup Add &9Setzt einen Aufwachpunkt and deiner Position'
 Help_WakeupCheck: '&6/brew Wakeup Check &9Teleportiert zu allen Aufwachpunkten'
@@ -96,3 +102,4 @@ Player_WakeNoCheck: '&cEs läuft kein Aufwachpunkte-Check'
 Player_WakeNoPoints: '&cEs wurden noch keine Aufwachpunkte erstellt!'
 Player_WakeNotExist: '&cDer Aufwachpunkt mit der id: &6&v1 &cexistiert nicht!'
 Player_WakeTeleport: 'Teleport zu Aufwachpunkt mit der id: &6&v1&f An Position: &6&v2 &v3, &v4, &v5'
+Player_ShopSealBrew: '&eBrewery Tränke sollten vor dem verkaufen versiegelt werden'

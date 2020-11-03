@@ -1,7 +1,7 @@
 name: Brewery
-version: 2.0.1
+version: 2.1.2
 main: com.dre.brewery.P
-softdepend: [LWC, LogBlock, WorldGuard, GriefPrevention, Vault, Citadel]
+softdepend: [LWC, LogBlock, WorldGuard, GriefPrevention, Vault, ChestShop]
 authors: [Milan Albrecht, Frank Baumann, ProgrammerDan, Daniel Saukel]
 api-version: 1.13
 commands:
@@ -37,6 +37,7 @@ permissions:
       brewery.mod: true
       brewery.cmd.info: true
       brewery.cmd.infoOther: true
+      brewery.cmd.seal: true
       brewery.cmd.player: true
       brewery.cmd.create: true
       brewery.cmd.copy: true
@@ -60,6 +61,8 @@ permissions:
     description: Information about your own drunkeness
   brewery.cmd.infoOther:
     description: Information about the drunkeness of another Player
+  brewery.cmd.seal:
+    description: Open the Brew Sealer by command
   brewery.cmd.player:
     description: Set Player-values
   brewery.cmd.wakeup:
@@ -89,10 +92,13 @@ permissions:
     children:
       brewery.openbarrel.small: true
       brewery.openbarrel.big: true
+      brewery.openbarrel.mc: true
   brewery.openbarrel.small:
     description: Allow to open small Barrels
   brewery.openbarrel.big:
     description: Allow to open big Barrels
+  brewery.openbarrel.mc:
+    description: Allow to open Minecraft Barrels
 
 # -- Cauldron --
   brewery.cauldron.time:

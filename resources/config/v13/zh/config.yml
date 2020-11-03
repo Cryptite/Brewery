@@ -48,6 +48,10 @@ drainItems:
 # 最大玩家下线记忆时长(单位为天). 饮酒的记忆保持时间, 便于计算宿醉.[7]
 hangoverDays: 7
 
+# If crafting and using of the Brew Sealing Table is enabled (2 Bottles over 4 Planks) [true, true]
+craftSealingTable: true
+enableSealingTable: true
+
 # 饮品上是否显示带颜色的提示, 颜色由执行步骤的正误决定. 第一项为在熟成酒桶内显示颜色, 第二项为在酿造台内显示颜色.[true, true]
 colorInBarrels: true
 colorInBrewer: true
@@ -62,6 +66,7 @@ alwaysShowAlc: false
 openLargeBarrelEverywhere: false
 
 # MC自带的桶内可以存放多少饮品 [6]
+ageInMCBarrels: true
 maxBrewsInMCBarrels: 6
 
 # The used Ingredients and other brewing-data is saved to all Brewery Items. To prevent
@@ -84,7 +89,7 @@ autosave: 3
 debug: false
 
 # 配置文件版本
-version: '2.0'
+version: '2.1.1'
 
 
 
@@ -130,6 +135,7 @@ customItems:
 
 # -- Ingredients in the Cauldron --
 # Which Ingredients are accepted by the Cauldron and the base potion resulting from them
+# You only need to add something here if you want to specify a custom name or color for the base potion
 
  # name: Name of the base potion coming out of the Cauldron (Formatting codes possible: such as &6)
  # ingredients: List of 'material/amount'
@@ -140,6 +146,7 @@ customItems:
  #   Usable Colors: DARK_RED, RED, BRIGHT_RED, ORANGE, YELLOW, PINK, PURPLE, BLUE, CYAN, WATER, TEAL, OLIVE, GREEN, LIME, BLACK, GREY, BRIGHT_GREY, WHITE
  #   Or RGB colors (hex: for example '99FF33') (with '') (search for "HTML color" on the internet)
  # lore: List of additional text on the base potion. (Formatting codes possible: such as &6)
+ # customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.
 
 cauldron:
   # Example with all possible entries
@@ -152,6 +159,7 @@ cauldron:
     lore:
       - An example for a Base Potion
       - This is how it comes out of a Cauldron
+    customModelData: 545
 
   # -- One Ingredient: --
   wheat:
@@ -349,10 +357,12 @@ cauldron:
 # alcohol: 完美质量的饮品所含有的酒精度(百分数, 会被直接添加到玩家身上, 100意为直接昏迷)
 # lore: List of additional text on the finished brew. (Formatting codes possible: such as &6)
 #   Specific lore for quality possible, using + bad, ++ normal, +++ good, added to the front of the line.
-# servercommands: List of Commands executed by the Server when drinking the brew
-# playercommands: List of Commands executed by the Player when drinking the brew
+# servercommands: List of Commands executed by the -Server- when drinking the brew (Can use %player_name%  %quality%)
+# playercommands: List of Commands executed by the -Player- when drinking the brew (Can use %player_name%  %quality%)
 # drinkmessage: Chat-message to the Player when drinking the Brew
 # drinktitle: Title on Screen to the Player when drinking the Brew
+# customModelData: Custom Model Data Tag. This is a number that can be used to add custom textures to the item.
+#   Can specify one for all, or one for each quality, separated by /
 # effects: 饮用后能够获得的药效的列表. 格式为"药效/强度/时长(秒)".
 #   药效列表: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
 #   药效强度与时长可以用"-"划分区间, 如: "SPEED/1-2/30-40" = 最劣质情况下的饮品会给予速度1三十秒, 最优质则会给予速度2四十秒.
@@ -392,6 +402,7 @@ recipes:
       - homes
     drinkmessage: Tastes good
     drinktitle: Warms you from inside
+    customModelData: 556/557/557
     effects:
       - FIRE_RESISTANCE/20
       - HEAL/1
@@ -793,6 +804,15 @@ multiServerDB:
   user: minec
   password: xyz
   database: base
+
+
+# -- Various Other Settings --
+
+# If items in Offhand should be added to the cauldron as well [false]
+useOffhandForCauldron: false
+
+# If Barrel and Cauldron data can be loaded Async/in the Background [true]
+loadDataAsync: true
 
 
 # -- 口糊设置 --
